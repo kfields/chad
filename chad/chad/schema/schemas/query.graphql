@@ -1,0 +1,4 @@
+type Query {
+    allUsers(after: String, before: String, first: Int, last: Int): UserConnection!
+    user(id: ID!): User!
+}

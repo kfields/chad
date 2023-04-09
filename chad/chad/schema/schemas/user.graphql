@@ -1,0 +1,28 @@
+# Authentication
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserEdge {
+  cursor: String!
+  node: User!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+}
+
+type LogIn {
+  token: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
