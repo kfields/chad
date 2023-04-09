@@ -1,1 +1,45 @@
 // app global css in SCSS form
+
+h1 {
+  text-rendering: optimizeLegibility;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 1.6rem;
+}
+
+h2 {
+  text-rendering: optimizeLegibility;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-top: 2rem;
+  margin-bottom: 1.6rem;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  //color: #388fec;
+}
+
+a:hover {
+  text-decoration: none;
+  //color: #6badf4;
+  color: #388fec;
+}
+
+.card-column {
+  //margin: 0 auto;
+  max-width: 64em;
+}
+.card-column > * {
+  margin-bottom: 16px;
+}
