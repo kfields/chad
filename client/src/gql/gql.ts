@@ -15,6 +15,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 const documents = {
     "\n  fragment UserItem on User {\n    id\n    username\n  }\n": types.UserItemFragmentDoc,
     "\n    query allUsers($first: Int!) {\n      allUsers(first: $first) {\n        edges {\n          node {\n            ...UserItem\n          }\n        }\n      }\n    }\n  ": types.AllUsersDocument,
+    "\n      mutation signIn($input: SignInInput!) {\n        signIn(input: $input) {\n          token\n        }\n      }\n    ": types.SignInDocument,
 };
 
 /**
@@ -39,6 +40,10 @@ export function graphql(source: "\n  fragment UserItem on User {\n    id\n    us
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query allUsers($first: Int!) {\n      allUsers(first: $first) {\n        edges {\n          node {\n            ...UserItem\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query allUsers($first: Int!) {\n      allUsers(first: $first) {\n        edges {\n          node {\n            ...UserItem\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      mutation signIn($input: SignInInput!) {\n        signIn(input: $input) {\n          token\n        }\n      }\n    "): (typeof documents)["\n      mutation signIn($input: SignInInput!) {\n        signIn(input: $input) {\n          token\n        }\n      }\n    "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

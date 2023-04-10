@@ -20,7 +20,7 @@ const { data } = useQuery({
   // variables are typed!
   variables: { first: 10 }
 })
-// `films` is typed!
+
 const users = computed(() => data.value?.allUsers?.edges?.map(e => e?.node))
 </script>
 

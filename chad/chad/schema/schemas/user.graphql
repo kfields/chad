@@ -18,11 +18,11 @@ type User {
   lastName: String!
 }
 
-type LogIn {
+type SignIn {
   token: String!
 }
 
-input LoginInput {
-  username: String!
+input SignInInput {
+  email: String!
   password: String!
 }

@@ -6,22 +6,22 @@ from chad.schema.types.base import mutation
 from ..models import User
 from chad.iam.jwt import encode_auth_token
 
-@mutation.field("login")
-@database_sync_to_async
-def resolve_login(_, info, data):
-    logger.debug(f"Login {data}")
+@mutation.field("signIn")
+#@database_sync_to_async
+def resolve_signin(_, info, input):
+    logger.debug(f"Login {input}")
 
-    username = data['username']
-    password = data['password']
+    email = input['email']
+    password = input['password']
 
-    if not username:
-        logger.debug("Username is missing")
-        raise Exception('Username missing!')
+    if not email:
+        logger.debug("Email is missing")
+        raise Exception('Email missing!')
     if not password:
         logger.debug("Password is missing")
         raise Exception('Password missing!')
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(email=email)
     except User.DoesNotExist:
         user = None
 
@@ -31,7 +31,7 @@ def resolve_login(_, info, data):
 
     # Identity can be any data that is json serializable
     # TODO: handle role properly
-    access_token = encode_auth_token(sub=username, id=user.id, role='Admin')
+    access_token = encode_auth_token(sub=email, id=user.id, role='Admin')
     logger.debug(f"Access token: {access_token}")
     # token = json.dumps({"token": access_token.decode('utf-8')})
     #token = access_token.decode('utf-8')
