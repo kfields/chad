@@ -5,4 +5,7 @@ type Query {
 
     myChats(after: String, before: String, first: Int, last: Int): ChatConnection!
     chat(id: ID!): Chat!
+
+    message(id: ID!): Message!
+    chatMessages(chatId: ID!, after: String, before: String, first: Int, last: Int): MessageConnection!
 }

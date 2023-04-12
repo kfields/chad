@@ -3,8 +3,8 @@ from loguru import logger
 #from django.contrib.auth.middleware import auser #Not published yet ...
 from chad.schema.types.base import query
 from chad.iam.middleware import get_request_user
-from ..models import Chat
-from ..schema import ChatConnection, ChatEdge, ChatNode
+from ..models import Chat, Message
+from ..schema import ChatConnection, MessageConnection
 
 
 @query.field("myChats")
@@ -20,10 +20,18 @@ async def resolve_my_chats(_, info, after:str=None, before:str=None, first:int=0
 async def resolve_chat(*_, id):
     return Chat.objects.aget(id=id)
 
-@query.field("me")
-async def resolve_me(_, info):
+###
+
+@query.field("chatMessages")
+async def resolve_chat_messages(_, info, chatId, after:str=None, before:str=None, first:int=0, last:int=0):
     user = await get_request_user(info.context["request"])
-    #if user.is_authenticated:
-    #    return user
-    logger.debug(user)
-    return user
+    chat = await Chat.objects.aget(id=chatId)
+    messages = [u async for u in Message.objects.filter(chat=chat)]
+    connection = MessageConnection(messages)
+    result = connection.wire()
+    return result
+
+
+@query.field("message")
+async def resolve_message(*_, id):
+    return Message.objects.aget(id=id)

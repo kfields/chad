@@ -1,5 +1,3 @@
-# Authentication
-
 type ChatConnection {
   edges: [ChatEdge!]!
   pageInfo: PageInfo!
@@ -15,6 +13,6 @@ type Chat {
   title: String!
 }
 
-input ChatInput {
+input CreateChatInput {
   title: String!
 }

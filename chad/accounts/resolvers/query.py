@@ -20,14 +20,6 @@ async def resolve_all_users(_, info, after:str=None, before:str=None, first:int=
 async def resolve_user(*_, id):
     return User.objects.aget(id=id)
 
-"""
-@database_sync_to_async
-def get_request_user(request):
-    if isinstance(request.user, SimpleLazyObject):
-        request.user._setup()
-    return request.user
-"""
-
 @query.field("me")
 async def resolve_me(_, info):
     user = await get_request_user(info.context["request"])

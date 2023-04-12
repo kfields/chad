@@ -1,5 +1,6 @@
 type Mutation {
   signIn(input: SignInInput!): SignIn!
 
-  createChat(input: ChatInput!): Chat!
+  createChat(input: CreateChatInput!): Chat!
+  createMessage(input: CreateMessageInput!): Message!
 }

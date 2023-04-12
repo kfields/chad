@@ -1,0 +1,20 @@
+type MessageConnection {
+  edges: [MessageEdge!]!
+  pageInfo: PageInfo!
+}
+
+type MessageEdge {
+  cursor: String!
+  node: Message!
+}
+
+type Message {
+  id: ID!
+  title: String!
+}
+
+input CreateMessageInput {
+  chatId: ID!
+  role: String!
+  content: String!
+}
