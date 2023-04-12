@@ -32,6 +32,10 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+dev = ["uvicorn ==0.21.1", "black ==23.3.0"]
+test = ["pytest ==7.2.1"]
+
 [project.urls]
 Documentation = "https://github.com/unknown/chad#readme"
 Issues = "https://github.com/unknown/chad/issues"
@@ -42,10 +46,12 @@ path = "chad/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
+  "uvicorn",
   "pytest",
   "pytest-cov",
 ]
 [tool.hatch.envs.default.scripts]
+develop = "uvicorn chad.asgi:application --reload"
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=chad --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
 

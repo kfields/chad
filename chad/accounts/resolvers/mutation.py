@@ -8,8 +8,8 @@ from chad.iam.jwt import encode_auth_token
 
 @mutation.field("signIn")
 #@database_sync_to_async
-def resolve_signin(_, info, input):
-    logger.debug(f"Login {input}")
+async def resolve_signin(_, info, input):
+    logger.debug(f"SignIn {input}")
 
     email = input['email']
     password = input['password']
@@ -21,7 +21,7 @@ def resolve_signin(_, info, input):
         logger.debug("Password is missing")
         raise Exception('Password missing!')
     try:
-        user = User.objects.get(email=email)
+        user = await User.objects.aget(email=email)
     except User.DoesNotExist:
         user = None
 

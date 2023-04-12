@@ -32,6 +32,7 @@ const client = createClient({
       return {
         addAuthToOperation(operation) {
           if (!token) return operation;
+          console.log('authToken', token)
           return utils.appendHeaders(operation, {
             Authorization: `Bearer ${token}`,
           });

@@ -77,3 +77,4 @@ docs/_build/
 
 # Django
 db.sqlite3
+/chad/static
