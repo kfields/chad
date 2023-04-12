@@ -1,0 +1,20 @@
+# Authentication
+
+type ChatConnection {
+  edges: [ChatEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ChatEdge {
+  cursor: String!
+  node: Chat!
+}
+
+type Chat {
+  id: ID!
+  title: String!
+}
+
+input ChatInput {
+  title: String!
+}

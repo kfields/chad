@@ -1,3 +1,5 @@
 type Mutation {
   signIn(input: SignInInput!): SignIn!
+
+  createChat(input: ChatInput!): Chat!
 }

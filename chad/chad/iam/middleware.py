@@ -1,32 +1,55 @@
 from loguru import logger
+import jwt
 
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from django.conf import settings
+from asgiref.sync import iscoroutinefunction, markcoroutinefunction
+
+from django.utils.functional import SimpleLazyObject
 from channels.db import database_sync_to_async
-from channels.auth import AuthMiddlewareStack
-from django.contrib.auth.models import AnonymousUser
-from django.db import close_old_connections
 
-from .jwt import decode_auth_token
-from accounts.models import User
+@database_sync_to_async
+def get_request_user(request):
+    if isinstance(request.user, SimpleLazyObject):
+        request.user._setup()
+    return request.user
 
-class TokenAuthMiddleware:
+class AuthenticationMiddleware:
+    async_capable = True
+    sync_capable = False
 
-    def __init__(self, app):
-        self.app = app
+    def __init__(self, get_response):
+        self.get_response = get_response
+        if iscoroutinefunction(self.get_response):
+            markcoroutinefunction(self)
 
-    @database_sync_to_async
-    def get_user(self, id):
-        user = User.objects.get(id=id)
-        close_old_connections()
-        return user
+    async def __call__(self, request):
+        auth_header = request.META.get("HTTP_AUTHORIZATION")
+        logger.debug(auth_header)
+        if auth_header and auth_header != 'Bearer undefined':
+            #if not auth_header:
+            #    return JsonResponse({"error": "Authentication credentials not provided"}, status=401)
 
-    async def __call__(self, scope, receive, send):
-        token = decode_auth_token(scope)
-        if token:
-            logger.debug(f'TokenAuthMiddleware:__call__:token:  {token}')
-            user = await self.get_user(token["id"])
-        else:
-            user = AnonymousUser()
-        scope['user'] = user
-        return await self.app(scope, receive, send)
+            # Check if the header starts with 'Bearer '
+            if not auth_header.startswith('Bearer '):
+                return JsonResponse({"error": "Invalid token format"}, status=401)
 
-TokenAuthMiddlewareStack = lambda app: TokenAuthMiddleware(AuthMiddlewareStack(app))
+            # Extract the token from the header
+            token = auth_header[7:]
+            
+            user_model = get_user_model()
+            try:
+                #user = user_model.objects.get(auth_token=token)
+                payload = jwt.decode(token, settings.SECRET_KEY, algorithms="HS256")
+                #user = user_model.objects.get(id=payload["id"])
+                user = await user_model.objects.aget(id=payload["id"])
+                logger.debug(user)
+
+            except user_model.DoesNotExist:
+                return JsonResponse({"error": "Invalid token"}, status=401)
+
+            request.user = user
+
+        response = await self.get_response(request)
+        return response

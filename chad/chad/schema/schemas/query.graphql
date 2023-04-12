@@ -2,4 +2,7 @@ type Query {
     allUsers(after: String, before: String, first: Int, last: Int): UserConnection!
     user(id: ID!): User!
     me: User
+
+    myChats(after: String, before: String, first: Int, last: Int): ChatConnection!
+    chat(id: ID!): Chat!
 }
