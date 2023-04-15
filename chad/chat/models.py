@@ -1,24 +1,30 @@
-#from datetime import datetime
-from django.utils import timezone
+import uuid
 
 from django.db import models
 
-from accounts.models import User
+from agent.models import Agent
 
 
 class Chat(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    title = models.CharField(max_length=250, default="New Chat")
-    #created_date = models.DateTimeField(default=datetime.now())
-    created_date = models.DateTimeField(default=timezone.now())
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    agents = models.ManyToManyField(Agent)
 
     def __str__(self):
-        return self.title
+        return self.name
 
-
+"""
 class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, default=1)
     role = models.CharField(max_length=32)
     content = models.TextField()
-    #created_date = models.DateTimeField(default=datetime.now())
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(auto_now_add=True)
+"""
+
+class Message(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    from_agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    to_agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE)

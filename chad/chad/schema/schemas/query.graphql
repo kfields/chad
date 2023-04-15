@@ -3,6 +3,10 @@ type Query {
     user(id: ID!): User!
     me: User
 
+    allAgents(after: String, before: String, first: Int, last: Int): AgentConnection!
+    agent(id: ID!): Agent!
+    myAvatar: Avatar
+
     myChats(after: String, before: String, first: Int, last: Int): ChatConnection!
     chat(id: ID!): Chat!
 

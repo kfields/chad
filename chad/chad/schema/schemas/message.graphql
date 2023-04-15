@@ -10,11 +10,19 @@ type MessageEdge {
 
 type Message {
   id: ID!
-  title: String!
+  chat: ID!
+  from: ID!
+  to: ID!
+  content: String!
 }
 
 input CreateMessageInput {
-  chatId: ID!
-  role: String!
+  chat: ID!
+  from: ID!
+  to: ID!
   content: String!
+}
+
+input SendMessageInput {
+  message: ID!
 }

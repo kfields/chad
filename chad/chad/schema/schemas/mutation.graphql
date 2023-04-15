@@ -3,4 +3,5 @@ type Mutation {
 
   createChat(input: CreateChatInput!): Chat!
   createMessage(input: CreateMessageInput!): Message!
+  sendMessage(input: SendMessageInput!): Message!
 }

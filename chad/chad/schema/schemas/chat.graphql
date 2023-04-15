@@ -10,9 +10,10 @@ type ChatEdge {
 
 type Chat {
   id: ID!
-  title: String!
+  name: String!
 }
 
 input CreateChatInput {
-  title: String!
+  to: ID!
+  name: String!
 }

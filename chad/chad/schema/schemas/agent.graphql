@@ -1,0 +1,24 @@
+type AgentConnection {
+  edges: [AgentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AgentEdge {
+  cursor: String!
+  node: Agent!
+}
+
+type Agent {
+  id: ID!
+  name: String!
+}
+
+type Avatar {
+  id: ID!
+  name: String!
+}
+
+type Bot {
+  id: ID!
+  name: String!
+}

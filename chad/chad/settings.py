@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'ariadne_django',
 
     'accounts',
+    'agent',
     'chat'
 ]
 

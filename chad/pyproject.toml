@@ -26,6 +26,7 @@ dependencies = [
   "loguru ==0.6.0",
   "Django ==4.2",
   "django-cors-headers ==3.14.0",
+  "django-model-utils ==4.3.1",
   "channels ==4.0.0",
   "ariadne-django ==0.3.0",
   "PyJWT ==2.6.0"
