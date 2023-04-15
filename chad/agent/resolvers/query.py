@@ -4,7 +4,7 @@ from loguru import logger
 from chad.schema.types.base import query
 from chad.iam.middleware import get_request_user
 from ..models import User, Agent
-from ..schema import AgentConnection, AgentEdge, AgentNode
+from ..schemata import AgentConnection, AgentEdge, AgentNode
 
 
 @query.field("allAgents")

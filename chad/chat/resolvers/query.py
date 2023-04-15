@@ -4,7 +4,7 @@ from loguru import logger
 from chad.schema.types.base import query
 from chad.iam.middleware import get_request_user
 from ..models import Chat, Message
-from ..schema import ChatConnection, MessageConnection
+from ..schemata import ChatConnection, MessageConnection
 
 
 @query.field("myChats")

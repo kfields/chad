@@ -24,3 +24,13 @@ input SignInInput {
   email: String!
   password: String!
 }
+
+extend type Query {
+  allUsers(after: String, before: String, first: Int, last: Int): UserConnection!
+  user(id: ID!): User!
+  me: User
+}
+
+extend type Mutation {
+  signIn(input: SignInInput!): SignIn!
+}

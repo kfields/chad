@@ -1,7 +1,0 @@
-type Mutation {
-  signIn(input: SignInInput!): SignIn!
-
-  createChat(input: CreateChatInput!): Chat!
-  createMessage(input: CreateMessageInput!): Message!
-  sendMessage(input: SendMessageInput!): Message!
-}

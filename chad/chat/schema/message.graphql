@@ -26,3 +26,12 @@ input CreateMessageInput {
 input SendMessageInput {
   message: ID!
 }
+
+extend type Query {
+  message(id: ID!): Message!
+}
+
+extend type Mutation {
+  createMessage(input: CreateMessageInput!): Message!
+  sendMessage(input: SendMessageInput!): Message!
+}

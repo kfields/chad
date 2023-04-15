@@ -1,0 +1,29 @@
+type ChatConnection {
+  edges: [ChatEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ChatEdge {
+  cursor: String!
+  node: Chat!
+}
+
+type Chat {
+  id: ID!
+  name: String!
+}
+
+input CreateChatInput {
+  to: ID!
+  name: String!
+}
+
+extend type Query {
+  myChats(after: String, before: String, first: Int, last: Int): ChatConnection!
+  chat(id: ID!): Chat!
+  chatMessages(chatId: ID!, after: String, before: String, first: Int, last: Int): MessageConnection!
+}
+
+extend type Mutation {
+  createChat(input: CreateChatInput!): Chat!
+}

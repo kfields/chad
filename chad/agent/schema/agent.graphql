@@ -22,3 +22,9 @@ type Bot {
   id: ID!
   name: String!
 }
+
+extend type Query {
+    allAgents(after: String, before: String, first: Int, last: Int): AgentConnection!
+    agent(id: ID!): Agent!
+    myAvatar: Avatar
+}
