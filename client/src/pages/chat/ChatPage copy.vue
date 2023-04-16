@@ -1,7 +1,13 @@
 <template>
   <div class="chat-container q-pa-md">
-    {{ chat }}
-    <ChatMessages v-if="chat" :chat="chat" />
+    <q-chat-message
+      text-html
+      :text="[
+        'hey, how are <strong>you</strong>? hey, how are <strong>you</strong>',
+        'hey, how are <strong>you</strong>?',
+      ]"
+    />
+
     <div class="input-container">
       <q-input
         bottom-slots
@@ -45,18 +51,15 @@ import { useRoute } from 'vue-router';
 import { useQuery, useMutation } from '@urql/vue';
 import { graphql } from '../../gql';
 
-import ChatMessages from 'components/chat/ChatMessages.vue'
-
 const route = useRoute();
 
 const id = route.params.id as string;
 console.log('id: ', id)
-const { data } = await useQuery({
+const { data } = useQuery({
   query: graphql(/* GraphQL */ `
-    query chatQuery($id: ID!) {
+    query chat($id: ID!) {
       chat(id: $id) {
         id
-        name
       }
     }
   `),
@@ -64,8 +67,9 @@ const { data } = await useQuery({
   variables: { id },
 });
 
-const chat = ref(data.value?.chat)
+const chat = data.value?.chat
 const chat_id = data.value?.chat.id;
+console.log('chat_id: ', chat_id);
 const text = ref('');
 
 /*const sendMessage = function () {
@@ -85,7 +89,7 @@ const sendChatMessageResult = useMutation(
 
 const sendMessage = async function () {
   console.log('send chat message');
-  const input = { id: chat_id as string, content: text.value };
+  const input = { id: chat_id, content: text.value };
   const variables = { input };
 
   console.log(variables);

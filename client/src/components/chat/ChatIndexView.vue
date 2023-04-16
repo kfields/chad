@@ -28,4 +28,8 @@ const chats = computed(() => data.value?.myChats?.edges?.map(e => e?.node))
   <ul>
     <q-list v-for="chat of chats" :key="(chat.id as string)"><ChatCard :chat="chat" /></q-list>
   </ul>
+  <q-page-sticky position="bottom-right" :offset="[18, 18]">
+    <q-btn fab color="primary" icon="add" to="/chat/create" />
+  </q-page-sticky>
+
 </template>

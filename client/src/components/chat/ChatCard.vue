@@ -2,7 +2,7 @@
   <q-item clickable v-ripple>
     <q-item-section>
       <router-link class="text-h6" :to="`/chat/${chat?.id}`">{{
-        title
+        name
       }}</router-link>
     </q-item-section>
   </q-item>
@@ -14,7 +14,7 @@ import { graphql, FragmentType, useFragment } from '../../gql'
 const ChatItemFragment = graphql(/* GraphQL */ `
   fragment ChatItem on Chat {
     id
-    title
+    name
   }
 `)
 
@@ -23,5 +23,5 @@ const props = defineProps<{
 }>();
 
 const chat = useFragment(ChatItemFragment, props.chat)
-const title = chat.title;
+const name = chat.name;
 </script>

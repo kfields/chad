@@ -15,7 +15,25 @@ type Chat {
 
 input CreateChatInput {
   to: ID!
-  name: String!
+}
+
+input SendChatMessageInput {
+  id: ID!
+  content: String!
+}
+
+interface ChatEvent {
+    id: ID!
+}
+
+type ChatJoinEvent implements ChatEvent {
+    id: ID!
+    agentId: ID!
+}
+
+type ChatMessageEvent implements ChatEvent {
+    id: ID!
+    message: Message
 }
 
 extend type Query {
@@ -26,4 +44,9 @@ extend type Query {
 
 extend type Mutation {
   createChat(input: CreateChatInput!): Chat!
+  sendChatMessage(input: SendChatMessageInput!): Message!
+}
+
+extend type Subscription {
+    chat(id: ID!): ChatEvent
 }

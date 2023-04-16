@@ -27,6 +27,8 @@ class Avatar(Agent):
         verbose_name_plural = _("avatars")
 
 class Bot(Agent):
+    owner = models.ForeignKey(User, related_name='bots', on_delete=models.CASCADE)
+    users = models.ManyToManyField(User)
     class Meta:
         verbose_name = _("bot")
         verbose_name_plural = _("bots")
@@ -38,9 +40,17 @@ from django.dispatch import receiver
 def create_avatar(sender, instance, created, **kwargs):
     logger.debug('create_avatar')
     if created:
+        avatar = Avatar.objects.create(user=instance, name=instance.username)
+        avatar.save()
         logger.debug('Avatar created')
-        Avatar.objects.create(user=instance, name=instance.username)
 
+        bot = Bot.objects.create(owner=instance, name='Chad')
+        bot.users.add(instance)
+        bot.save()
+        logger.debug('Bot created')
+
+"""
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.avatar.save()
+"""

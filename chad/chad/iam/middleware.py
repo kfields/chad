@@ -15,6 +15,12 @@ def get_request_user(request):
         request.user._setup()
     return request.user
 
+@database_sync_to_async
+def get_request_avatar(request):
+    if isinstance(request.user, SimpleLazyObject):
+        request.user._setup()
+    return request.user.avatar
+
 class AuthenticationMiddleware:
     async_capable = True
     sync_capable = False

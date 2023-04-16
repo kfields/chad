@@ -10,9 +10,8 @@ type MessageEdge {
 
 type Message {
   id: ID!
-  chat: ID!
-  from: ID!
-  to: ID!
+  chat: Chat!
+  from: Agent!
   content: String!
 }
 

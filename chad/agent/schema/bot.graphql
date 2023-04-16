@@ -1,0 +1,18 @@
+type BotConnection {
+  edges: [BotEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BotEdge {
+  cursor: String!
+  node: Agent!
+}
+
+type Bot {
+  id: ID!
+  name: String!
+}
+
+extend type Query {
+    myBots(after: String, before: String, first: Int, last: Int): BotConnection!
+}

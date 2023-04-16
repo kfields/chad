@@ -7,7 +7,7 @@ from agent.models import Agent
 
 class Chat(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True, default='New Chat')
     created_at = models.DateTimeField(auto_now_add=True)
     agents = models.ManyToManyField(Agent)
 
@@ -25,6 +25,5 @@ class Message(models.Model):
 class Message(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    from_agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
-    to_agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    from_agent = models.ForeignKey(Agent, related_name='from_messages', on_delete=models.CASCADE)
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE)
