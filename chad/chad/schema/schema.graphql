@@ -5,8 +5,13 @@ type PageInfo {
   endCursor: String
 }
 
+interface Node {
+    id: ID!
+}
+
 type Query {
   _empty: String
+  node(id: ID!): Node
 }
 
 type Mutation {

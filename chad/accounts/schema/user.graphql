@@ -8,7 +8,7 @@ type UserEdge {
   node: User!
 }
 
-type User {
+type User implements Node {
   id: ID!
   username: String!
   email: String!

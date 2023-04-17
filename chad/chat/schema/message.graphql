@@ -8,7 +8,7 @@ type MessageEdge {
   node: Message!
 }
 
-type Message {
+type Message implements Node {
   id: ID!
   chat: Chat!
   from: Agent!

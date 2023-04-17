@@ -1,5 +1,7 @@
 from loguru import logger
 
+from graphql_relay import from_global_id
+
 from channels.db import database_sync_to_async
 from chad.schema.types.base import mutation
 from chad.iam.middleware import get_request_user, get_request_avatar
@@ -35,7 +37,10 @@ async def resolve_create_chat(_, info, input):
 
 @mutation.field("sendChatMessage")
 async def resolve_send_chat_message(_, info, input):
+    #chat_id = input.get("id", None)
     chat_id = input.get("id", None)
+    chat_id = from_global_id(chat_id)[1]
+
     from_agent = await get_request_avatar(info.context["request"])
 
     chat = await Chat.objects.aget(id=chat_id)
@@ -52,7 +57,7 @@ async def resolve_create_message(_, info, input):
     if not user.is_authenticated:
         raise Exception("User not authenticated!")
 
-    chat_id = input.get("chatId", None)
+    #chat_id = input.get("chatId", None)
     chat = await Chat.objects.aget(id=chat_id)
     role = input.get("role", None)
     content = input.get("content", None)

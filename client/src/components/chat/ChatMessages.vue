@@ -32,5 +32,12 @@ const chatMessages = computed(() => data.value?.chatMessages?.edges?.map(e => e?
 </script>
 
 <template>
-  <q-list v-for="message of chatMessages" :key="(message.id as string)"><MessageCard :message="message" /></q-list>
+  <div class="card-column">
+    <MessageCard
+      v-for="message of chatMessages"
+      :key="(message.id as string)"
+      :message="message"
+    />
+  </div>
+
 </template>

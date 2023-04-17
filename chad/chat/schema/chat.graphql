@@ -8,7 +8,7 @@ type ChatEdge {
   node: Chat!
 }
 
-type Chat {
+type Chat implements Node {
   id: ID!
   name: String!
 }

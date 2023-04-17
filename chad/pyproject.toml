@@ -29,6 +29,7 @@ dependencies = [
   "django-model-utils ==4.3.1",
   "channels ==4.0.0",
   "ariadne-django ==0.3.0",
+  "ariadne-relay ==0.1.0a8",
   "PyJWT ==2.6.0"
 ]
 dynamic = ["version"]

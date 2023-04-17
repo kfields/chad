@@ -1,6 +1,5 @@
 <template>
   <div class="chat-container q-pa-md">
-    {{ chat }}
     <ChatMessages v-if="chat" :chat="chat" />
     <div class="input-container">
       <q-input

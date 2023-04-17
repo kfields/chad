@@ -32,7 +32,7 @@ const client = createClient({
       return {
         addAuthToOperation(operation) {
           if (!token) return operation;
-          console.log('authToken', token)
+          //console.log('authToken', token)
           return utils.appendHeaders(operation, {
             Authorization: `Bearer ${token}`,
           });
@@ -44,7 +44,7 @@ const client = createClient({
         },
         async refreshAuth() {
           //logout();
-          console.log('refreshAuth')
+          console.log('refreshAuth');
         },
       };
     }),

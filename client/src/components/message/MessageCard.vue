@@ -1,9 +1,12 @@
 <template>
-  <q-item clickable v-ripple>
-    <q-item-section>
+  <q-card>
+    <q-card-section>
+    {{ from_name }}
+    </q-card-section>
+    <q-card-section>
       {{ content }}
-    </q-item-section>
-  </q-item>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +15,7 @@ import { graphql, FragmentType, useFragment } from '../../gql'
 const MessageItemFragment = graphql(`
   fragment MessageItem on Message {
     id
+    from { id name }
     content
   }
 `)
@@ -22,4 +26,5 @@ const props = defineProps<{
 
 const message = useFragment(MessageItemFragment, props.message)
 const content = message.content;
+const from_name = message.from.name;
 </script>

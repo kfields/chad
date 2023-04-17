@@ -1,8 +1,7 @@
-from .user import user
-from .agent import agent, avatar, bot
-from .chat import chat
+from accounts.types import user
+from agent.types import agent, avatar, bot
+from chat.types import chat, message
 
 from .base import query, mutation, subscription
 
-#types = [user, query, mutation, subscription]
-types = [user, agent, avatar, bot, chat, query, mutation]
+types = [user, agent, avatar, bot, chat, message, query, mutation]
