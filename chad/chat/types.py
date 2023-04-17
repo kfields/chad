@@ -5,6 +5,8 @@ from ariadne_relay import NodeObjectType
 
 from .models import Chat, Message
 
+from .events import chat_event_union
+
 #user = ObjectType("User")
 message = NodeObjectType("Message")
 

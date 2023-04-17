@@ -3,13 +3,14 @@ from loguru import logger
 from graphql_relay import from_global_id
 
 from channels.db import database_sync_to_async
-from chad.schema.types.base import mutation
+from chad.schema.types.base import mutation, pubsub
 from chad.iam.middleware import get_request_user, get_request_avatar
 
 from ..models import Chat, Message
 #from accounts.models import User
 
 from ..hub import hub
+from ..events import ChatMessageEvent
 
 @database_sync_to_async
 def create_chat(from_agent, to_agent):
@@ -37,7 +38,6 @@ async def resolve_create_chat(_, info, input):
 
 @mutation.field("sendChatMessage")
 async def resolve_send_chat_message(_, info, input):
-    #chat_id = input.get("id", None)
     chat_id = input.get("id", None)
     chat_id = from_global_id(chat_id)[1]
 
@@ -49,6 +49,8 @@ async def resolve_send_chat_message(_, info, input):
 
     message = await Message.objects.acreate(chat=chat, from_agent=from_agent, content=content) #Can't: causes validation error
     logger.debug(message)
+    #pubsub.emit(f"chat/{chat_id}", ChatMessageEvent(chat_id, message))
+    pubsub.emit(ChatMessageEvent(id=chat_id, message=message))
     return message
 
 @mutation.field("createMessage")
