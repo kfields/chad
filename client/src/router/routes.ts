@@ -7,7 +7,8 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'signin', component: () => import('pages/SignInPage.vue') },
-      { path: 'users', component: () => import('pages/user/UserIndexPage.vue') },
+      { path: 'user', component: () => import('pages/user/UserIndexPage.vue') },
+      { path: 'agent', component: () => import('pages/agent/AgentIndexPage.vue') },
       { path: 'chat/create', component: () => import('pages/chat/ChatCreatePage.vue') },
       { path: 'chat/:id', component: () => import('pages/chat/ChatPage.vue') },
     ],

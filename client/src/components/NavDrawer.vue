@@ -9,33 +9,15 @@
         </q-item-section>
       </q-item>
 
-      <q-item to="/launches" v-ripple>
+      <q-item to="/agent" v-ripple>
         <q-item-section>
-          <q-icon name="o_rocket_launch" size="xs" />
-        </q-item-section>
-      </q-item>
-
-      <q-item to="/rockets" v-ripple>
-        <q-item-section>
-          <q-icon name="o_rocket" size="xs" />
+          <q-icon name="o_smart_toy" size="xs" />
         </q-item-section>
       </q-item>
 
       <q-item to="/cores" v-ripple>
         <q-item-section>
           <q-icon name="o_hub" size="xs" />
-        </q-item-section>
-      </q-item>
-
-      <q-item to="/dragons" v-ripple>
-        <q-item-section>
-          <q-icon name="las la-dragon" size="xs" />
-        </q-item-section>
-      </q-item>
-
-      <q-item to="/capsules" v-ripple>
-        <q-item-section>
-          <q-icon name="las la-capsules" size="xs" />
         </q-item-section>
       </q-item>
 

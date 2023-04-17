@@ -8,7 +8,7 @@ type BotEdge {
   node: Agent!
 }
 
-type Bot {
+type Bot implements Node {
   id: ID!
   name: String!
 }

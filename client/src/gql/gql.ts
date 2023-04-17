@@ -13,11 +13,13 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  fragment AgentItem on Agent {\n    id\n    name\n  }\n": types.AgentItemFragmentDoc,
     "\n  fragment ChatItem on Chat {\n    id\n    name\n  }\n": types.ChatItemFragmentDoc,
     "\n    query myChats($first: Int!) {\n      myChats(first: $first) {\n        edges {\n          node {\n            ...ChatItem\n          }\n        }\n      }\n    }\n  ": types.MyChatsDocument,
     "\n    query chatMessages($chatId: ID!) {\n      chatMessages(chatId: $chatId) {\n        edges {\n          node {\n            ...MessageItem\n          }\n        }\n      }\n    }\n  ": types.ChatMessagesDocument,
     "\n  fragment MessageItem on Message {\n    id\n    from { id name }\n    content\n  }\n": types.MessageItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    username\n  }\n": types.UserItemFragmentDoc,
+    "\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  ": types.AllAgentsDocument,
     "\n    query myBots($first: Int!) {\n      myBots(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  ": types.MyBotsDocument,
     "\n    mutation createChat($input: CreateChatInput!) {\n      createChat(input: $input) {\n        id\n      }\n    }\n  ": types.CreateChatDocument,
     "\n    query chat($id: ID!) {\n      chat(id: $id) {\n        id\n      }\n    }\n  ": types.ChatDocument,
@@ -44,6 +46,10 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  fragment AgentItem on Agent {\n    id\n    name\n  }\n"): (typeof documents)["\n  fragment AgentItem on Agent {\n    id\n    name\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  fragment ChatItem on Chat {\n    id\n    name\n  }\n"): (typeof documents)["\n  fragment ChatItem on Chat {\n    id\n    name\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -61,6 +67,10 @@ export function graphql(source: "\n  fragment MessageItem on Message {\n    id\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment UserItem on User {\n    id\n    username\n  }\n"): (typeof documents)["\n  fragment UserItem on User {\n    id\n    username\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

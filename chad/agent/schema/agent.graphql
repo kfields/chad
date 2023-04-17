@@ -8,12 +8,12 @@ type AgentEdge {
   node: Agent!
 }
 
-type Agent {
+type Agent implements Node {
   id: ID!
   name: String!
 }
 
-type Avatar {
+type Avatar implements Node {
   id: ID!
   name: String!
 }
