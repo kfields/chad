@@ -1,5 +1,7 @@
 from loguru import logger
 
+from graphql_relay import from_global_id
+
 #from django.contrib.auth.middleware import auser #Not published yet ...
 from chad.schema.types.base import query
 from chad.iam.middleware import get_request_user
@@ -14,7 +16,8 @@ async def resolve_all_agents(_, info, after:str=None, before:str=None, first:int
 
 @query.field("agent")
 async def resolve_agent(*_, id):
-    return Agent.objects.aget(id=id)
+    id = from_global_id(id)[1]
+    return await Agent.objects.aget(id=id)
 
 @query.field("myAvatar")
 async def resolve_my_avatar(_, info):

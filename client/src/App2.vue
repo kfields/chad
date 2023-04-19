@@ -16,7 +16,7 @@ import {
 } from '@urql/vue';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { authExchange } from '@urql/exchange-auth';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { createClient as createWSClient } from 'graphql-ws';
 
 async function initializeAuthState() {
   const token = localStorage.getItem('authToken');
@@ -24,8 +24,8 @@ async function initializeAuthState() {
   return { token, refreshToken };
 }
 
-const subscriptionClient = new SubscriptionClient('ws://localhost:8000/graphql/', {
-  reconnect: true,
+const wsClient = createWSClient({
+  url: 'ws://localhost:8000/graphql/',
 });
 
 const client = createClient({
@@ -59,7 +59,15 @@ const client = createClient({
     }),
     fetchExchange,
     subscriptionExchange({
-      forwardSubscription: (request) => subscriptionClient.request(request),
+      forwardSubscription(request) {
+        const input = { ...request, query: request.query || '' };
+        return {
+          subscribe(sink) {
+            const unsubscribe = wsClient.subscribe(input, sink);
+            return { unsubscribe };
+          },
+        };
+      },
     }),
   ],
   requestPolicy: 'cache-and-network',

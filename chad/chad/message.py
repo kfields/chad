@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 class Message:
     @property
     def typename(self):
@@ -6,3 +8,4 @@ class Message:
 class Event(Message):
     def __init__(self, id):
         self.id = id
+        self.timestamp = timezone.now()

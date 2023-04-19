@@ -1,33 +1,40 @@
-from pydantic import BaseModel
+from ariadne import InterfaceType
 
-from ariadne import UnionType
+from chad.message import Event
 
-from .models import Message
+factories = None
 
-class ChatMessageEvent(BaseModel):
-    id: int
-    message: Message
+class ChatEvent(Event):
+    def __init__(self, id):
+        super().__init__(id)
 
-    #TODO: define a validator for Message
-    class Config:
-        arbitrary_types_allowed = True
+    @classmethod
+    def produce(self, data):
+        return factories[data['__typename']](data)
 
-class ChatJoinEvent(BaseModel):
-    id: int
-    agent_id: int
+class ChatJoinEvent(ChatEvent):
+    def __init__(self, id, agent_id):
+        super().__init__(id)
+        self.agent_id = agent_id
 
-class ChatLeaveEvent(BaseModel):
-    id: int
-    agent_id: int
+class ChatLeaveEvent(ChatEvent):
+    def __init__(self, id, agent_id):
+        super().__init__(id)
+        self.agent_id = agent_id
 
-def resolve_chat_event_type(obj, *_):
-    if isinstance(obj, ChatMessageEvent):
-        return "ChatMessageEvent"
-    if isinstance(obj, ChatJoinEvent):
-        return "ChatJoinEvent"
-    if isinstance(obj, ChatLeaveEvent):
-        return "ChatLeaveEvent"
-    return None
+class ChatMessageEvent(ChatEvent):
+    def __init__(self, id, message):
+        super().__init__(id)
+        self.message = message
 
+chat_event = InterfaceType("ChatEvent")
 
-chat_event_union = UnionType("ChatEvent", type_resolver=resolve_chat_event_type)
+@chat_event.type_resolver
+def resolve_game_event_type(obj, *_):
+    return obj.typename
+
+factories = {
+    'ChatJoinEvent': lambda data: ChatJoinEvent(data['id'], data['agentId']),
+    'ChatLeaveEvent': lambda data: ChatLeaveEvent(data['id'], data['agentId']),
+    'ChatMessageEvent': lambda data: ChatMessageEvent(data['id'], data['message'])
+}

@@ -21,7 +21,7 @@ class Subscriber:
         pass
 
     async def receive(self):
-        await self.queue.get()
+        return await self.queue.get()
 
 class Hub:
     def __init__(self):

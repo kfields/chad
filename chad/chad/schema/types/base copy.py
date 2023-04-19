@@ -3,6 +3,7 @@ from graphql.pyutils import SimplePubSub
 from ariadne import QueryType, MutationType, SubscriptionType, InterfaceType
 from ariadne_relay import NodeObjectType, RelayQueryType, resolve_node_query
 
+from ...subscription import SubscriptionAwareObjectType
 
 #query = QueryType()
 # Instead of using Ariadne's QueryType, use the Relay-enabled
@@ -13,7 +14,8 @@ query = RelayQueryType()
 query.set_field("node", resolve_node_query)
 
 mutation = MutationType()
-subscription = SubscriptionType()
+#subscription = SubscriptionType()
+subscription = SubscriptionAwareObjectType("Subscription")
 pubsub = SimplePubSub()
 
 # Define the Node interface

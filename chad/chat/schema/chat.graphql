@@ -22,22 +22,28 @@ input SendChatMessageInput {
   content: String!
 }
 
-type ChatJoinEvent {
+interface ChatEvent {
     id: ID!
+    timestamp: DateTime!
+}
+
+type ChatJoinEvent implements ChatEvent {
+    id: ID!
+    timestamp: DateTime!
     agentId: ID!
 }
 
-type ChatLeaveEvent {
+type ChatLeaveEvent implements ChatEvent {
     id: ID!
+    timestamp: DateTime!
     agentId: ID!
 }
 
-type ChatMessageEvent {
+type ChatMessageEvent implements ChatEvent {
     id: ID!
-    message: Message
+    timestamp: DateTime!
+    message: Message!
 }
-
-union ChatEvent = ChatMessageEvent | ChatJoinEvent | ChatLeaveEvent
 
 extend type Query {
   myChats(after: String, before: String, first: Int, last: Int): ChatConnection!

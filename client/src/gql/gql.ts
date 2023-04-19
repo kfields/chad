@@ -17,6 +17,7 @@ const documents = {
     "\n  fragment ChatItem on Chat {\n    id\n    name\n  }\n": types.ChatItemFragmentDoc,
     "\n    query myChats($first: Int!) {\n      myChats(first: $first) {\n        edges {\n          node {\n            ...ChatItem\n          }\n        }\n      }\n    }\n  ": types.MyChatsDocument,
     "\n    query chatMessages($chatId: ID!) {\n      chatMessages(chatId: $chatId) {\n        edges {\n          node {\n            ...MessageItem\n          }\n        }\n      }\n    }\n  ": types.ChatMessagesDocument,
+    "\n      subscription chatEvent($id: ID!) {\n        chat(id: $id) {\n          __typename\n          id\n          timestamp\n          ... on ChatMessageEvent {\n            message {\n              ...MessageItem\n            }\n          }\n        }\n      }\n    ": types.ChatEventDocument,
     "\n  fragment MessageItem on Message {\n    id\n    from { id name }\n    content\n  }\n": types.MessageItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    username\n  }\n": types.UserItemFragmentDoc,
     "\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  ": types.AllAgentsDocument,
@@ -59,6 +60,10 @@ export function graphql(source: "\n    query myChats($first: Int!) {\n      myCh
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query chatMessages($chatId: ID!) {\n      chatMessages(chatId: $chatId) {\n        edges {\n          node {\n            ...MessageItem\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query chatMessages($chatId: ID!) {\n      chatMessages(chatId: $chatId) {\n        edges {\n          node {\n            ...MessageItem\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      subscription chatEvent($id: ID!) {\n        chat(id: $id) {\n          __typename\n          id\n          timestamp\n          ... on ChatMessageEvent {\n            message {\n              ...MessageItem\n            }\n          }\n        }\n      }\n    "): (typeof documents)["\n      subscription chatEvent($id: ID!) {\n        chat(id: $id) {\n          __typename\n          id\n          timestamp\n          ... on ChatMessageEvent {\n            message {\n              ...MessageItem\n            }\n          }\n        }\n      }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

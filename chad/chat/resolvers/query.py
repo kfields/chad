@@ -30,4 +30,5 @@ async def resolve_chat_messages(*_, chatId, after:str=None, before:str=None, fir
 
 @query.field("message")
 async def resolve_message(*_, id):
-    return Message.objects.aget(id=id)
+    id = from_global_id(id)[1]
+    return await Message.objects.aget(id=id)

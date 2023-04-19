@@ -246,7 +246,7 @@ class GraphQLWebsocketConsumer(AsyncJsonWebsocketConsumer):
         root_value=self.get_query_root(payload)
         logger.debug(f'root_value: {root_value}')
         context_value=self.get_query_context(payload)
-        logger.debug(f'context_value: {context_value}')
+        #logger.debug(f'context_value: {context_value}')
         variable_values=payload.get("variables")
         logger.debug(f'variable_values: {variable_values}')
         operation_name=payload.get("operationName")
@@ -290,4 +290,4 @@ class GraphQLWebsocketConsumer(AsyncJsonWebsocketConsumer):
 
     async def disconnect(self, code: Any) -> None:
         for operation_id in self.subscriptions:
-            self.subscription_stop(operation_id)
+            await self.subscription_stop(operation_id)

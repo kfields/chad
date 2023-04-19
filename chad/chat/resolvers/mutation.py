@@ -49,8 +49,8 @@ async def resolve_send_chat_message(_, info, input):
 
     message = await Message.objects.acreate(chat=chat, from_agent=from_agent, content=content) #Can't: causes validation error
     logger.debug(message)
-    #pubsub.emit(f"chat/{chat_id}", ChatMessageEvent(chat_id, message))
-    pubsub.emit(ChatMessageEvent(id=chat_id, message=message))
+    #pubsub.emit(ChatMessageEvent(chat_id, message))
+    await hub.send(ChatMessageEvent(chat_id, message))
     return message
 
 @mutation.field("createMessage")

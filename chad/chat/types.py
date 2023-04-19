@@ -1,3 +1,5 @@
+from loguru import logger
+
 from channels.db import database_sync_to_async
 
 from ariadne import ObjectType
@@ -5,7 +7,7 @@ from ariadne_relay import NodeObjectType
 
 from .models import Chat, Message
 
-from .events import chat_event_union
+from .events import chat_event
 
 #user = ObjectType("User")
 message = NodeObjectType("Message")
@@ -25,4 +27,5 @@ def get_message_from(message):
 
 @message.field("from")
 async def resolve_message_from(message, *_):
+    logger.debug(message)
     return await get_message_from(message)

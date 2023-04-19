@@ -1,11 +1,12 @@
 <template>
   <div class="chat-container q-pa-md">
     <ChatMessages v-if="chat" :chat="chat" />
+    <div style="height: 128px;" />
     <div class="input-container">
       <q-input
         bottom-slots
         v-model="text"
-        label="Label"
+        label="Send a message ..."
         @keydown.enter.prevent="sendMessage"
       >
         <template v-slot:before>
@@ -33,7 +34,8 @@
   position: fixed;
   bottom: 0;
   width: 70%;
-  /*padding: 10px;*/
+  padding: 10px;
+  background-color: black;
 }
 </style>
 
