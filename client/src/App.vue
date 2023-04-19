@@ -31,11 +31,9 @@ const subscriptionClient = new SubscriptionClient('ws://localhost:8000/graphql/'
 const client = createClient({
   url: process.env.GRAPHQL_ENDPOINT ? process.env.GRAPHQL_ENDPOINT : '',
   exchanges: [
-    cacheExchange({
-      keys: {
-        LaunchLinks: () => null,
-      },
-    }),
+    //TODO: This is messing with subscriptions.  Fix it later ...
+    /*cacheExchange({
+    }),*/
     authExchange(async (utils) => {
       let { token, refreshToken } = await initializeAuthState();
       return {

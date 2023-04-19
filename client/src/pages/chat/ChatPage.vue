@@ -95,6 +95,7 @@ const sendMessage = async function () {
     //let message = result.data?.sendChatMessage.message
     let message = result.data?.sendChatMessage
     console.log(message);
+    text.value = '';
   });
 };
 

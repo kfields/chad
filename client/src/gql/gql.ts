@@ -18,7 +18,7 @@ const documents = {
     "\n    query myChats($first: Int!) {\n      myChats(first: $first) {\n        edges {\n          node {\n            ...ChatItem\n          }\n        }\n      }\n    }\n  ": types.MyChatsDocument,
     "\n    query chatMessages($chatId: ID!) {\n      chatMessages(chatId: $chatId) {\n        edges {\n          node {\n            ...MessageItem\n          }\n        }\n      }\n    }\n  ": types.ChatMessagesDocument,
     "\n      subscription chatEvent($id: ID!) {\n        chat(id: $id) {\n          __typename\n          id\n          timestamp\n          ... on ChatMessageEvent {\n            message {\n              ...MessageItem\n            }\n          }\n        }\n      }\n    ": types.ChatEventDocument,
-    "\n  fragment MessageItem on Message {\n    id\n    from { id name }\n    content\n  }\n": types.MessageItemFragmentDoc,
+    "\n  fragment MessageItem on Message {\n    id\n    from {\n      id\n      name\n    }\n    content\n  }\n": types.MessageItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    username\n  }\n": types.UserItemFragmentDoc,
     "\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  ": types.AllAgentsDocument,
     "\n    query myBots($first: Int!) {\n      myBots(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  ": types.MyBotsDocument,
@@ -67,7 +67,7 @@ export function graphql(source: "\n      subscription chatEvent($id: ID!) {\n   
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment MessageItem on Message {\n    id\n    from { id name }\n    content\n  }\n"): (typeof documents)["\n  fragment MessageItem on Message {\n    id\n    from { id name }\n    content\n  }\n"];
+export function graphql(source: "\n  fragment MessageItem on Message {\n    id\n    from {\n      id\n      name\n    }\n    content\n  }\n"): (typeof documents)["\n  fragment MessageItem on Message {\n    id\n    from {\n      id\n      name\n    }\n    content\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

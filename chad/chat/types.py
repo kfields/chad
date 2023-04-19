@@ -2,7 +2,7 @@ from loguru import logger
 
 from channels.db import database_sync_to_async
 
-from ariadne import ObjectType
+#from ariadne import ObjectType
 from ariadne_relay import NodeObjectType
 
 from .models import Chat, Message
@@ -11,6 +11,12 @@ from .events import chat_event
 
 #user = ObjectType("User")
 message = NodeObjectType("Message")
+
+# Add an instance_resolver to define how an instance of
+# this type is retrieved, given an id
+@message.instance_resolver
+async def resolve_message_instance(id, *_):
+    return await Message.objects.aget(id=id)
 
 #chat = ObjectType("Chat")
 chat = NodeObjectType("Chat")
