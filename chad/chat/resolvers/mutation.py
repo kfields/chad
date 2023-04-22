@@ -28,7 +28,8 @@ async def resolve_create_chat(_, info, input):
     """
     #from_agent = user.avatar
     from_agent = await get_request_avatar(info.context["request"])
-    to_agent = input.get("to", None)
+    #to_agent = input.get("to", None)
+    to_agent = from_global_id(input.get("to", None))[1]
 
     #chat = await Chat.objects.acreate(agents=[from_agent, to_agent])
     chat = await create_chat(from_agent, to_agent)

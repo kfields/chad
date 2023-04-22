@@ -5,7 +5,7 @@
       filled
       bottom-slots
       v-model="model"
-      :options="bots"
+      :options="agents"
       option-label="name"
       option-value="id"
       label="Bot"
@@ -33,12 +33,12 @@ import { graphql } from '../../gql';
 
 const router = useRouter();
 
-const model = ref<Bot | null>(null);
+const model = ref<Agent | null>(null);
 
 const { data } = useQuery({
   query: graphql(`
-    query myBots($first: Int!) {
-      myBots(first: $first) {
+    query allContacts($first: Int!) {
+      allAgents(first: $first) {
         edges {
           node {
             id
@@ -52,10 +52,10 @@ const { data } = useQuery({
   variables: { first: 10 },
 });
 
-const bots = computed(() => data.value?.myBots?.edges?.map((e) => e?.node));
+const agents = computed(() => data.value?.allAgents?.edges?.map((e) => e?.node));
 
 watch(
-  bots,
+  agents,
   (newResult) => {
     if (newResult && newResult.length > 0) {
       model.value = newResult[0];

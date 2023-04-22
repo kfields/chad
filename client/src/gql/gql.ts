@@ -21,7 +21,7 @@ const documents = {
     "\n  fragment MessageItem on Message {\n    id\n    from {\n      id\n      name\n    }\n    content\n  }\n": types.MessageItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    username\n  }\n": types.UserItemFragmentDoc,
     "\n    query allAgents($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            ...AgentItem\n          }\n        }\n      }\n    }\n  ": types.AllAgentsDocument,
-    "\n    query myBots($first: Int!) {\n      myBots(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  ": types.MyBotsDocument,
+    "\n    query allContacts($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  ": types.AllContactsDocument,
     "\n    mutation createChat($input: CreateChatInput!) {\n      createChat(input: $input) {\n        id\n      }\n    }\n  ": types.CreateChatDocument,
     "\n    query chat($id: ID!) {\n      chat(id: $id) {\n        id\n      }\n    }\n  ": types.ChatDocument,
     "\n    mutation sendChatMessage($input: SendChatMessageInput!) {\n      sendChatMessage(input: $input) {\n        id\n        content\n      }\n    }\n  ": types.SendChatMessageDocument,
@@ -79,7 +79,7 @@ export function graphql(source: "\n    query allAgents($first: Int!) {\n      al
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query myBots($first: Int!) {\n      myBots(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query myBots($first: Int!) {\n      myBots(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  "];
+export function graphql(source: "\n    query allContacts($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query allContacts($first: Int!) {\n      allAgents(first: $first) {\n        edges {\n          node {\n            id\n            name\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

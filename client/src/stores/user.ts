@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 
-import { gql, useMutation } from '@urql/vue';
+import { useMutation } from '@urql/vue';
 import { defineStore } from 'pinia';
 import jwtDecode from 'jwt-decode'
 
